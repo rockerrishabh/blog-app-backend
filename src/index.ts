@@ -5,7 +5,11 @@ import { login, register } from "./controllers/auth.controller";
 const app = new Elysia();
 const PORT = Bun.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 
 app.get("/", (c) => {
   return "Hello, World!";
