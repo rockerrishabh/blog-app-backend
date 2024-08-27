@@ -1,13 +1,4 @@
-import {
-  integer,
-  pgEnum,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  uniqueIndex,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", ["Admin", "User", "Author"]);
 export const users = pgTable("users", {
@@ -19,6 +10,7 @@ export const users = pgTable("users", {
   password: text("password"),
   role: roleEnum("role").default("User").notNull(),
   image: text("image"),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updatedAt", { mode: "date" }),
 });

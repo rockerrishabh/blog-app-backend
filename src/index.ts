@@ -1,6 +1,6 @@
 import cors from "@elysiajs/cors";
 import Elysia, { t } from "elysia";
-import { register } from "./controllers/auth.controller";
+import { login, register } from "./controllers/auth.controller";
 
 const app = new Elysia();
 const PORT = Bun.env.PORT || 5000;
@@ -26,6 +26,38 @@ app.post(
   {
     body: t.Object({
       name: t.String(),
+      email: t.String(),
+      password: t.String(),
+    }),
+  }
+);
+
+app.post(
+  "/auth/login",
+  async (c) => {
+    const { email, password } = c.body;
+    const { success, message, status, cookieToken } = await login(
+      email,
+      password
+    );
+
+    const { token } = c.cookie;
+
+    if (cookieToken) {
+      token.value = cookieToken;
+      token.httpOnly = true;
+      token.sameSite = true;
+      token.expires = new Date(new Date().getTime() + 7 * 60 * 60 * 1000);
+    }
+
+    c.set.status = status;
+    return {
+      success,
+      message,
+    };
+  },
+  {
+    body: t.Object({
       email: t.String(),
       password: t.String(),
     }),
