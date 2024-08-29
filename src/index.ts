@@ -8,11 +8,7 @@ const NODE_ENV = process.env.NODE_ENV ?? "development";
 
 app.use(
   cors({
-    origin: [
-      "https://rishabhportfolio.site",
-      "http://localhost:3000",
-      "https://www.rishabhportfolio.site",
-    ],
+    origin: true,
     credentials: true,
   })
 );
