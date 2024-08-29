@@ -3,7 +3,8 @@ import Elysia, { t } from "elysia";
 import { login, register } from "./controllers/auth.controller";
 
 const app = new Elysia();
-const PORT = Bun.env.PORT || 5000;
+const PORT: number = +(process.env.PORT || 5000);
+const NODE_ENV = process.env.NODE_ENV ?? "development";
 
 app.use(
   cors({

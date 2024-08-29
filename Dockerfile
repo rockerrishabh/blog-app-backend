@@ -1,9 +1,11 @@
-FROM oven/bun:1
-WORKDIR /backend
-COPY . .
+FROM oven/bun
+
+WORKDIR /api
+
+COPY package*.json bun.lockb ./
 RUN bun install
- 
-ARG PORT
-EXPOSE ${PORT:-5000}
- 
-CMD ["bun", "src/index.ts"]
+COPY . .
+
+ENV NODE_ENV production
+
+CMD [ "bun", "start" ]
