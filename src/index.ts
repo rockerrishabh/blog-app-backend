@@ -8,6 +8,7 @@ const NODE_ENV = process.env.NODE_ENV ?? "development";
 
 app.use(
   cors({
+    origin: "*",
     credentials: true,
   })
 );
