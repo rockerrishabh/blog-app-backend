@@ -14,7 +14,7 @@ app.use(
 );
 
 app.get("/", (c) => {
-  return "Hello, World!";
+  return {message: "Hello, World!"} ;
 });
 
 app.post(
